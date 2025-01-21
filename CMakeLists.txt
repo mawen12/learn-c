@@ -7,6 +7,6 @@ include_directories(.)
 include_directories(src)
 
 add_executable(learn_c
-    src/datatype.c
-    src/main.c
+        src/datatype.c
+        src/main.c
 )

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
+#include <typeDefDemo.h>
 
 // 函数签名，解决ISO C99 and later do not support implicit function declarations报错
 void sayHi(char name[], int age);
@@ -30,6 +31,29 @@ struct Student {
     int age;
     double gpa;
 };
+
+struct Demo {
+    // void 代表任意类型，* 代表一个指针
+    void *ptr;
+};
+
+void incVal(int val) {
+    val++;
+}
+
+// 使用 * 声明指向int类型的指针
+void incVal2(int *val) {
+    *val = *val + 1;
+}
+
+// 使用 ** 声明指向指针的指针
+void incVal3(int **val) {
+    **val = **val + 1;
+}
+
+typedef char *sds;
+
+#define ZERO 0;
 
 // main 是C语言执行的入口
 int main() {
@@ -193,16 +217,114 @@ int main() {
 
 
     // 打开一个文件，并保存其文件地址，其支持模式为r -> read, w -> write, a -> append
-    FILE * fpointer = fopen("/Users/mawen/Documents/github/mawen12/learn-c/employees.txt", "r");
+    FILE *fpointer = fopen("/Users/mawen/Documents/github/mawen12/learn-c/employees.txt", "r");
 
     /*
     fprintf(fpointer, "\nHello C++!");
     */
 
+    /*
     char line[255];
     // 使用fgets读取文件第一行内容
     fgets(line, 255, fpointer);
     printf("%s", line);
+    */
+
+    /*
+    struct Demo demo;
+    demo.ptr = "NXA";
+
+    char *opt = demo.ptr;
+    printf("%c %c %c\n", opt[0], opt[1], opt[2]);
+    printf("%p\n", &opt);
+
+    int a = 10;
+    if (a >= 5) {
+        printf("a %d is better than 5", a);
+    }
+    else if (a >= 6) {
+        printf("a %d is better than 6", a);
+    }
+    */
+
+    /*
+    int val = 10;
+    incVal(val);
+    // print 10
+    printf("%d\n", val);
+
+    incVal(*&val);
+    // print 10
+    printf("%d\n", val);
+
+    int *val2 = &val;
+    // 使用 & 获取变量的内存地址
+    incVal2(val2);
+    // print 11
+    printf("%d\n", *val2);
+
+    incVal3(&val2);
+    // print 12
+    printf("%d\n", *val2);
+
+    int type = ZERO;
+    if (0 == type) {
+        printf("is 0\n");
+    }
+
+    char str[] = "Mawen";
+    sds s = str;
+    unsigned char c = s[-1];
+    printf("%d\n", c);
+    printf("%c\n", c);
+    */
+
+    char c = 'A';
+    size_t cs = sizeof(c);
+    printf("%d\n", cs); // 1 byte
+
+    char name[] = "Hello World";
+    size_t len = strlen(name);
+    printf("%d\n", len);// 11 bytes
+
+    int num = 1;
+    size_t len1 = sizeof(num);
+    printf("%d\n", len1);// 4 bytes
+
+    unsigned int numu = 1;
+    size_t numus = sizeof(numu);
+    printf("%d\n", numus);// 4 bytes
+
+    long numl = 4;
+    size_t numlz = sizeof(numl);
+    printf("%d\n", numlz); // 8 bytes
+
+    float f = 1.99;
+    size_t fz = sizeof(f);
+    printf("%d\n", fz); // 4 bytes
+
+    double d = 1.99;
+    size_t dz = sizeof(d);
+    printf("%d\n", dz); // 8 bytes
+
+    long long nll = 317584931803ll;
+    size_t nllz = sizeof(nll);
+    printf("%d\n", nllz); // 8 bytes
+
+
+    char cc = '8';
+    // 将char转换为int
+    printf("%d\n", cc - '0');
+
+
+    int n = 1;
+    printf("1<<0 is %d\n", n << 0);
+    printf("1<<1 is %d\n", n << 1);
+    printf("1<<2 is %d\n", n << 2);
+
+    printf("%d\n", (0 << 8 | n));
+    printf("%d\n", (1 << 8 | 1 << 1));
+
 
     return 0;
 }
